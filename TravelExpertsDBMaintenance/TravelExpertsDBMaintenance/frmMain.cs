@@ -574,6 +574,18 @@ namespace TravelExpertsDBMaintenance
             btnDelete.Enabled = false;
         }
 
-       
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to exit Travel Expert Management System?", "Exit Confirm",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.ExitThread();//exit the message loop of current threand and close form
+            }
+            else
+            {
+                e.Cancel = true;//cancel manually
+            }
+        }
     } // class
 } // namespace
