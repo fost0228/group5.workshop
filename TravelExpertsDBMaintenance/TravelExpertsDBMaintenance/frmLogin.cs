@@ -43,7 +43,7 @@ namespace TravelExpertsDBMaintenance
 
             {
                 //build the connection by the string
-                string connString = "server=localhost\\adocoxsql;database=TravelExperts;Integrated Security=true";//windows check
+                string connString = "server=localhost\\sqlexpress;database=TravelExperts;Integrated Security=true";//windows check
                 SqlConnection conn = new SqlConnection(connString);
                 //query
                 string sql = "select count(1) from Customers where CustomerId='"+Name+"' and CustHomePhone='"+Pwd+"'";

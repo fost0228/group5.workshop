@@ -36,6 +36,7 @@ namespace TravelExpertsDBMaintenance
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.btnLogIn = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -93,11 +94,22 @@ namespace TravelExpertsDBMaintenance
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label3.Location = new System.Drawing.Point(347, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(169, 20);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "ID:104, Pwd:4032791223";
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 417);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnLogIn);
             this.Controls.Add(this.txtPwd);
@@ -121,5 +133,6 @@ namespace TravelExpertsDBMaintenance
         private System.Windows.Forms.TextBox txtPwd;
         private System.Windows.Forms.Button btnLogIn;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label3;
     }
 }
