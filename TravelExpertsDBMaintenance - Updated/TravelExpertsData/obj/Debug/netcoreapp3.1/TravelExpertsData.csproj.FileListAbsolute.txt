@@ -1,0 +1,12 @@
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.deps.json
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.runtimeconfig.json
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.runtimeconfig.dev.json
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.pdb
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.csproj.AssemblyReference.cache
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.AssemblyInfoInputs.cache
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.AssemblyInfo.cs
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.csproj.CoreCompileInputs.cache
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.pdb
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.genruntimeconfig.cache
