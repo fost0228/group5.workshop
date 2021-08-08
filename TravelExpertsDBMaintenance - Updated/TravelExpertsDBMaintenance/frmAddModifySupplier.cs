@@ -180,35 +180,35 @@ namespace TravelExpertsDBMaintenance
                         prodNames.Add(c);
                     }
 
-                    // *** Move this outside of form and execute after Suppliers table is
-                    // modified ***
+                    //// *** Move this outside of form and execute after Suppliers table is
+                    //// modified ***
 
-                    // Find Product Suppliers that do not have Id of products on current list
-                    // Remove them from the data base
-                    using (TravelExpertsContext db = new TravelExpertsContext())
-                    {
-                        List<ProductsSuppliers> prodSuppliersToRemove = db.ProductsSuppliers
-                            .Where(ps => ps.SupplierId == this.supplierID).ToList();
+                    //// Find Product Suppliers that do not have Id of products on current list
+                    //// Remove them from the data base
+                    //using (TravelExpertsContext db = new TravelExpertsContext())
+                    //{
+                    //    List<ProductsSuppliers> prodSuppliersToRemove = db.ProductsSuppliers
+                    //        .Where(ps => ps.SupplierId == this.supplierID).ToList();
 
-                        // filter out all prod supplier that contain id for product that's in the product
-                        // names list
-                        foreach (string p in prodNames)
-                        {
-                            prodSuppliersToRemove.Remove(
-                                prodSuppliersToRemove.SingleOrDefault(pstr => GetProductName((int)pstr.ProductId) == p));
-                        }
+                    //    // filter out all prod supplier that contain id for product that's in the product
+                    //    // names list
+                    //    foreach (string p in prodNames)
+                    //    {
+                    //        prodSuppliersToRemove.Remove(
+                    //            prodSuppliersToRemove.SingleOrDefault(pstr => GetProductName((int)pstr.ProductId) == p));
+                    //    }
 
-                        if (prodSuppliersToRemove.Count > 0)
-                        {
-                            foreach (ProductsSuppliers ps in prodSuppliersToRemove)
-                            {
-                                db.ProductsSuppliers.Remove(ps);
-                            }
+                    //    if (prodSuppliersToRemove.Count > 0)
+                    //    {
+                    //        foreach (ProductsSuppliers ps in prodSuppliersToRemove)
+                    //        {
+                    //            db.ProductsSuppliers.Remove(ps);
+                    //        }
 
-                            db.SaveChanges();
-                        }
+                    //        db.SaveChanges();
+                    //    }
                         
-                    }
+                    //}
                 }              
                 
                 supplier.SupName = txtName.Text;
@@ -346,7 +346,7 @@ namespace TravelExpertsDBMaintenance
         /// </summary>
         /// <param name="id">ProductID</param>
         /// <returns>Product name</returns>
-        private string GetProductName(int id)
+        public string GetProductName(int id)
         {
             using (TravelExpertsContext db = new TravelExpertsContext())
             {

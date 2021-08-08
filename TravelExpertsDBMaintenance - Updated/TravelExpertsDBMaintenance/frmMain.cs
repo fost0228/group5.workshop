@@ -336,7 +336,47 @@ namespace TravelExpertsDBMaintenance
                         try
                         {
                             db.Suppliers.Update(supplierForm.supplier);
+
+                            // This last part is for removing product supplier entries that 
+                            // do not have a ProductId that matches an Id of any products on
+                            // the current supplier list of associated product names
+
+                            // *********************************************************************
+
+                            // Get the list of current product suppliers entries that contain
+                            // current supplierId
+
+                            List<ProductsSuppliers> prodSuppliersToRemove = db.ProductsSuppliers
+                                    .Where(ps => ps.SupplierId == supplierForm.supplierID).ToList();
+
+                                // filter out all product supplier entries that contain an id for
+                                // products that are on the product names list in the supplier form
+                                // object (current record of associated products)
+
+                                foreach (string p in supplierForm.prodNames)
+                                {
+                                    prodSuppliersToRemove.Remove(
+                                        prodSuppliersToRemove.SingleOrDefault(pstr => 
+                                            supplierForm.GetProductName((int)pstr.ProductId) == p)
+                                    );
+                                }
+
+                                // If count is greater than 0, this list contains product suppliers
+                                // that need to be removed from the ProductSuppliers table
+
+                                if (prodSuppliersToRemove.Count > 0)
+                                {
+                                    foreach (ProductsSuppliers ps in prodSuppliersToRemove)
+                                    {
+                                        db.ProductsSuppliers.Remove(ps);
+                                    }
+                                }
+
+                            // Save all changes to database
+
                             db.SaveChanges();
+
+                            // Display updated list of Suppliers
 
                             DisplaySuppliers();
                         }
@@ -345,9 +385,7 @@ namespace TravelExpertsDBMaintenance
                             MessageBox.Show("Error updating Supplier table", ex.GetType().ToString(),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                    }
-
-                    // *** product suppliers are added within the form object. May move that part out here ***
+                    }           
                 }
             }
 
