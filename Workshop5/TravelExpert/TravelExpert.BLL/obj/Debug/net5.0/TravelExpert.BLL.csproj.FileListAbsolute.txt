@@ -1,0 +1,12 @@
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\bin\Debug\net5.0\TravelExpert.BLL.deps.json
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\bin\Debug\net5.0\TravelExpert.BLL.dll
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\bin\Debug\net5.0\ref\TravelExpert.BLL.dll
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\bin\Debug\net5.0\TravelExpert.BLL.pdb
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.csproj.AssemblyReference.cache
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.GeneratedMSBuildEditorConfig.editorconfig
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.AssemblyInfoInputs.cache
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.AssemblyInfo.cs
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.csproj.CoreCompileInputs.cache
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.dll
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\ref\TravelExpert.BLL.dll
+E:\WorkSpace\Asp.net\Workshop5\TravelExpert\TravelExpert.BLL\obj\Debug\net5.0\TravelExpert.BLL.pdb
