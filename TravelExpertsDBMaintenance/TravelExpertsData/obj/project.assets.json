@@ -5902,23 +5902,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\acox0\\.nuget\\packages\\": {},
+    "C:\\Users\\fores\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj",
+      "projectUniqueName": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj",
       "projectName": "TravelExpertsData",
-      "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj",
-      "packagesPath": "C:\\Users\\acox0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsData\\obj\\",
+      "projectPath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj",
+      "packagesPath": "C:\\Users\\fores\\.nuget\\packages\\",
+      "outputPath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\acox0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fores\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

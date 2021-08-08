@@ -5921,23 +5921,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\acox0\\.nuget\\packages\\": {},
+    "C:\\Users\\fores\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance.csproj",
+      "projectUniqueName": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance.csproj",
       "projectName": "TravelExpertsDBMaintenance",
-      "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance.csproj",
-      "packagesPath": "C:\\Users\\acox0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance\\obj\\",
+      "projectPath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance.csproj",
+      "packagesPath": "C:\\Users\\fores\\.nuget\\packages\\",
+      "outputPath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\acox0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fores\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5952,8 +5952,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj": {
-              "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj"
+            "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj": {
+              "projectPath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj"
             }
           }
         }
@@ -5989,6 +5989,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.17, 3.1.17]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

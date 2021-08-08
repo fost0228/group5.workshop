@@ -10,3 +10,15 @@ C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Deb
 C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.dll
 C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.pdb
 C:\Users\acox0\source\repos\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.genruntimeconfig.cache
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.deps.json
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.runtimeconfig.json
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.runtimeconfig.dev.json
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.dll
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\bin\Debug\netcoreapp3.1\TravelExpertsData.pdb
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.csproj.AssemblyReference.cache
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.AssemblyInfoInputs.cache
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.AssemblyInfo.cs
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.csproj.CoreCompileInputs.cache
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.dll
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.pdb
+E:\WorkSpace\csharp\group5workshop\TravelExpertsDBMaintenance\TravelExpertsData\obj\Debug\netcoreapp3.1\TravelExpertsData.genruntimeconfig.cache
