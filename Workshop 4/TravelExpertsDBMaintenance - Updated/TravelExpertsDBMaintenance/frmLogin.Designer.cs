@@ -32,8 +32,8 @@ namespace TravelExpertsDBMaintenance
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtUserId = new System.Windows.Forms.TextBox();
-            this.txtPwd = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnLogIn = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,38 +42,38 @@ namespace TravelExpertsDBMaintenance
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(110, 93);
+            this.label1.Location = new System.Drawing.Point(110, 91);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 25);
+            this.label1.Size = new System.Drawing.Size(108, 25);
             this.label1.TabIndex = 0;
-            this.label1.Text = "User ID:";
+            this.label1.Text = "Username:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(110, 165);
+            this.label2.Location = new System.Drawing.Point(110, 163);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(104, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password:";
             // 
-            // txtUserId
+            // txtUsername
             // 
-            this.txtUserId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtUserId.Location = new System.Drawing.Point(239, 88);
-            this.txtUserId.Name = "txtUserId";
-            this.txtUserId.Size = new System.Drawing.Size(193, 30);
-            this.txtUserId.TabIndex = 2;
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtUsername.Location = new System.Drawing.Point(239, 88);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(193, 30);
+            this.txtUsername.TabIndex = 2;
             // 
-            // txtPwd
+            // txtPassword
             // 
-            this.txtPwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPwd.Location = new System.Drawing.Point(239, 160);
-            this.txtPwd.Name = "txtPwd";
-            this.txtPwd.PasswordChar = '*';
-            this.txtPwd.Size = new System.Drawing.Size(193, 30);
-            this.txtPwd.TabIndex = 3;
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtPassword.Location = new System.Drawing.Point(239, 160);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(193, 30);
+            this.txtPassword.TabIndex = 3;
             // 
             // btnLogIn
             // 
@@ -106,8 +106,8 @@ namespace TravelExpertsDBMaintenance
             this.ClientSize = new System.Drawing.Size(566, 349);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnLogIn);
-            this.Controls.Add(this.txtPwd);
-            this.Controls.Add(this.txtUserId);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -117,7 +117,7 @@ namespace TravelExpertsDBMaintenance
             this.Name = "frmLogin";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Log In";
+            this.Text = "Agent Log In";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,8 +127,8 @@ namespace TravelExpertsDBMaintenance
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtUserId;
-        private System.Windows.Forms.TextBox txtPwd;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogIn;
         private System.Windows.Forms.Button btnCancel;
     }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TravelExpertsBLL;
 using TravelExpertsData.Models;
 
 namespace TravelExpertsDBMaintenance
@@ -11,6 +13,9 @@ namespace TravelExpertsDBMaintenance
     public partial class frmMain : Form
     {
         int index; // Index number that corresponds to ComboBox selection
+        string username; // Current user logged in
+
+        public string Username { get; set; }
 
         public frmMain()
         {
@@ -29,14 +34,30 @@ namespace TravelExpertsDBMaintenance
 
             // Sets DataGridView data source to null
             dgvMain.DataSource = null;
+
+            // ==============
+
+            //using (TravelExpertsContext db = new TravelExpertsContext())
+            //{
+            //    Agents agent = db.Agents.SingleOrDefault(a => a.AgtUsername)
+            //}
         }
 
 
-        // Member Event Handlers =================================================================
+        // Member Event Handlers ======================================================================
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            // Dialog box to confirm if user reall does want to exit the application
+            DialogResult confirmation = MessageBox.Show("Are you sure you want to exit?", "Confirmation",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmation == DialogResult.Yes) // User chose yes, so application will close
+            {
+                Application.Exit();
+            }
+            
+            // User chose no, so dialog box will close and application will resume
         }
 
 
@@ -56,6 +77,7 @@ namespace TravelExpertsDBMaintenance
 
             // Setting darker background color on alternating rows
             dgvMain.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
 
             // Depending on which table is selected in the combo box,
             // populate data grid view with that data
@@ -77,6 +99,7 @@ namespace TravelExpertsDBMaintenance
             }
         }
 
+
         /// <summary>
         /// Depending on which option is selected in ComboBox, a corresponding form
         /// is displayed to add a new database entry
@@ -93,24 +116,21 @@ namespace TravelExpertsDBMaintenance
                 // Display form (Dialog box)
                 DialogResult result = packageForm.ShowDialog();
 
-                if (result == DialogResult.OK) // Once form data is confirmed
-                {
-                    using (TravelExpertsContext db = new TravelExpertsContext()) // Open database connection
-                    {
-                        try
-                        {
-                            // Add packages object from form to Packages table
-                            db.Packages.Add(packageForm.package);
-                            db.SaveChanges();
 
-                            DisplayPackages();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error adding package", ex.GetType().ToString(),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                if (result == DialogResult.OK) // Once form data is confirmed
+                {   
+                    try
+                    {
+                        // Add packages object from form to Packages table
+                        PackageManager.Add(packageForm.package);
+                           
+                        DisplayPackages();
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error adding package", ex.GetType().ToString(),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }     
                 }
             }
             else if (index == 2) // Products
@@ -123,23 +143,21 @@ namespace TravelExpertsDBMaintenance
                 // Display form (Dialog box)
                 DialogResult result = productForm.ShowDialog();
 
+
                 if (result == DialogResult.OK)
                 {
-                    using (TravelExpertsContext db = new TravelExpertsContext()) // open database connection
+                    try
                     {
-                        try
-                        {
-                            db.Products.Add(productForm.product);
-                            db.SaveChanges();
-
-                            DisplayProducts();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error adding product", ex.GetType().ToString(),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        ProductManager.Add(productForm.product);
+                         
+                        DisplayProducts();
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error adding product", ex.GetType().ToString(),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
             }
             else if (index == 3) // Suppliers
@@ -152,54 +170,78 @@ namespace TravelExpertsDBMaintenance
                 // Display form (Dialog box)
                 DialogResult result = supplierForm.ShowDialog();
 
+
                 if (result == DialogResult.OK)
                 {
-                    using (TravelExpertsContext db = new TravelExpertsContext()) // Open database connection
+                    // ASSIGN ID to SUPPLIER ======================================================
+
+                    // Find all supplier IDs
+                    List<int> supplierIds = SupplierManager.GetListOfIDs();
+
+                    // Auto increment supplierId based on available IDs
+                    foreach (var supId in supplierIds)
                     {
-                        // Find all supplier IDs
-                        var supplierIds = db.Suppliers.Select(c => new { ID = c.SupplierId }).ToList();
-
-                        // auto increment supplierId based on available IDs
-                        foreach (var s in supplierIds)
+                        if (supplierForm.supplier.SupplierId == supId)
                         {
-                            if (supplierForm.supplier.SupplierId == s.ID)
+                            supplierForm.supplier.SupplierId = supId;
+                            supplierForm.supplier.SupplierId += 1;
+
+                            // Update supplierIds in Product Supplier Objects to match current
+                            // SupplierId
+                            foreach (ProductsSuppliers ps in supplierForm.prodsuppliers)
                             {
-                                supplierForm.supplier.SupplierId = s.ID;
-                                supplierForm.supplier.SupplierId += 1;
-
-                                // update supplierIds in Product Supplier Objects to match current
-                                // supplierId
-                                foreach (ProductsSuppliers ps in supplierForm.prodsuppliers)
-                                {
-                                    ps.SupplierId = supplierForm.supplier.SupplierId;
-                                }
+                                ps.SupplierId = supplierForm.supplier.SupplierId;
                             }
-                        }
-
-                        try
-                        {
-                            // Add new supplier to Suppliers table
-                            db.Suppliers.Add(supplierForm.supplier);
-
-                            if (supplierForm.prodsuppliers.Count > 0) // Products were added to supplier
-                            {
-                                // Add all associated product supplier entries
-                                foreach (ProductsSuppliers ps in supplierForm.prodsuppliers)
-                                {
-                                    db.ProductsSuppliers.Add(ps);
-                                }
-                            }
-
-                            db.SaveChanges();
-
-                            DisplaySuppliers();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error adding supplier", ex.GetType().ToString(),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
+
+                    // PASS SUPPLIER ID to SUPPLIER CONTACT ========================================
+
+                    // Add current supplier Id to supplier contact object
+                    supplierForm.supplierContact.SupplierId = supplierForm.supplier.SupplierId;
+
+                    // ASSIGN ID TO SUPPLIER CONTACT ===============================================
+
+                    // Find all supplier contact IDs
+                    List<int> supplierContactIds = SupplierContactManager.GetListOfIDs();
+
+                    // Auto increment supplierContactId based on available IDs
+                    foreach (var supConId in supplierContactIds)
+                    {
+                        if (supplierForm.supplierContact.SupplierContactId == supConId)
+                        {
+                            supplierForm.supplierContact.SupplierContactId = supConId;
+                            supplierForm.supplierContact.SupplierContactId += 1;
+                        }
+                    }
+
+                    // ==============================================================================
+
+                    try
+                    {
+                        // Add new supplier to Suppliers table
+                        SupplierManager.Add(supplierForm.supplier);
+
+                        if (supplierForm.prodsuppliers.Count > 0) // Products were added to supplier
+                        {
+                            // Add all associated product supplier entries
+                            foreach (ProductsSuppliers ps in supplierForm.prodsuppliers)
+                            {
+                                ProductSupplierManager.Add(ps);
+                            }
+                        }
+
+                        // Add default supplier contact entry to SupplierContacts table
+                        SupplierContactManager.Add(supplierForm.supplierContact);
+
+                        DisplaySuppliers();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error adding supplier", ex.GetType().ToString(),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
             }
         }
@@ -218,16 +260,12 @@ namespace TravelExpertsDBMaintenance
                 frmAddModifyPackage packageForm = new frmAddModifyPackage();
                 Packages selectedPackage;
                 packageForm.isAdd = false;
+ 
+                // String value for primary key column of selected row in data grid view
+                string value = (string)dgvMain.CurrentRow.Cells[0].Value;
 
-
-                using (TravelExpertsContext db = new TravelExpertsContext()) // Open database connection
-                {
-                    // String value for primary key column of selected row in data grid view
-                    string value = (string)dgvMain.CurrentRow.Cells[0].Value;
-
-                    // Assigning query result as the current selected product
-                    selectedPackage = db.Packages.SingleOrDefault(p => p.PkgName == value);
-                } // close
+                // Assigning query result as the current selected product
+                selectedPackage = PackageManager.Find(value);              
 
                 // Setting form package object to the current selected package
                 packageForm.package = selectedPackage;
@@ -237,22 +275,18 @@ namespace TravelExpertsDBMaintenance
                 DialogResult result = packageForm.ShowDialog();
 
                 if (result == DialogResult.OK)
-                {
-                    using (TravelExpertsContext db = new TravelExpertsContext()) // Open database connection
+                {              
+                    try
                     {
-                        try
-                        {
-                            db.Packages.Update(packageForm.package);
-                            db.SaveChanges();
+                        PackageManager.Modify(packageForm.package);                       
 
-                            DisplayPackages();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error updating Packages table", ex.GetType().ToString(),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                        }
+                        DisplayPackages();
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error updating Packages table", ex.GetType().ToString(),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                    }             
                 }
             }
             else if (index == 2) // PRODUCTS TABLE
@@ -262,17 +296,12 @@ namespace TravelExpertsDBMaintenance
                 frmAddModifyProduct productForm = new frmAddModifyProduct();
                 Products selectedProduct;
                 productForm.isAdd = false;
+                
+                //String value for primary key column of selected row in data grid view
+                int value = (int)dgvMain.CurrentRow.Cells[0].Value;
 
-
-                using (TravelExpertsContext db = new TravelExpertsContext()) // Opens database connection
-                {
-                    //String value for primary key column of selected row in data grid view
-                    int value = (int)dgvMain.CurrentRow.Cells[0].Value;
-
-                    // Assigns query result as the current selected product
-                    selectedProduct = db.Products.Find(value);
-                } // close
-
+                // Assigns query result as the current selected product
+                selectedProduct = ProductManager.Find(value);
 
                 // Setting form product object to the current selected product
                 productForm.product = selectedProduct;
@@ -282,22 +311,19 @@ namespace TravelExpertsDBMaintenance
 
 
                 if (result == DialogResult.OK)
-                {
-                    using (TravelExpertsContext db = new TravelExpertsContext()) // Open db connection
+                {                  
+                    try
                     {
-                        try
-                        {
-                            db.Products.Update(productForm.product);
-                            db.SaveChanges();
-
-                            DisplayProducts();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error updating Products table", ex.GetType().ToString(),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        ProductManager.Modify(productForm.product);
+                        
+                        DisplayProducts();
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error updating Products table", ex.GetType().ToString(),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                  
                 }
             }
             else if (index == 3) // SUPPLIERS TABLE
@@ -309,20 +335,17 @@ namespace TravelExpertsDBMaintenance
                 List<ProductsSuppliers> prodSuppliers;
                 supplierForm.isAdd = false;
 
-                using (TravelExpertsContext db = new TravelExpertsContext()) // Opens database connection
-                {
-                    //String value for primary key column of selected row in data grid view
-                    int value = (int)dgvMain.CurrentRow.Cells[0].Value;
 
-                    // Assigns query result as the current selected product
-                    selectedSupplier = db.Suppliers.Find(value);
+                //String value for primary key column of selected row in data grid view
+                int value = (int)dgvMain.CurrentRow.Cells[0].Value;
 
-                    // Find all product suppliers with selected id and add to list
-                    prodSuppliers = db.ProductsSuppliers.Where(ps => ps.SupplierId == selectedSupplier.SupplierId)
-                        .ToList();
-                } // close
+                // Assigns query result as the current selected product
+                selectedSupplier = SupplierManager.Find(value);
 
-                // pass suppliers and product suppliers to form
+                // Find all product suppliers with selected id and add to list
+                prodSuppliers = ProductSupplierManager.GetListBySupplierID(selectedSupplier.SupplierId);
+
+                // Pass suppliers and product suppliers to form
                 supplierForm.supplier = selectedSupplier;
                 supplierForm.prodsuppliers = prodSuppliers;
 
@@ -357,7 +380,7 @@ namespace TravelExpertsDBMaintenance
                                 {
                                     prodSuppliersToRemove.Remove(
                                         prodSuppliersToRemove.SingleOrDefault(pstr => 
-                                            supplierForm.GetProductName((int)pstr.ProductId) == p)
+                                            ProductManager.GetProductName((int)pstr.ProductId) == p)
                                     );
                                 }
 
@@ -385,11 +408,10 @@ namespace TravelExpertsDBMaintenance
                             MessageBox.Show("Error updating Supplier table", ex.GetType().ToString(),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                    }           
+                    } // close
+                    
                 }
-            }
-
-            
+            }         
         }
 
 
@@ -403,14 +425,11 @@ namespace TravelExpertsDBMaintenance
             {
                 Packages selectedPackage; // Object for current selection
 
-                using (TravelExpertsContext db = new TravelExpertsContext()) // Open database connection
-                {
-                    // String value for primary key column of selected row in data grid view
-                    string value = (string)dgvMain.CurrentRow.Cells[0].Value;
+                // String value for primary key column of selected row in data grid view
+                string value = (string)dgvMain.CurrentRow.Cells[0].Value;
 
-                    // Assign query result as the current selected product
-                    selectedPackage = db.Packages.SingleOrDefault(p => p.PkgName == value);
-                } // close
+                // Assign query result as the current selected product
+                selectedPackage = PackageManager.Find(value);
 
 
                 if (selectedPackage != null) // If a package is selected
@@ -422,14 +441,10 @@ namespace TravelExpertsDBMaintenance
                     if (answer == DialogResult.Yes)
                     {
                         try
-                        {
-                            using (TravelExpertsContext db = new TravelExpertsContext())
-                            {
-                                db.Packages.Remove(selectedPackage);
-                                db.SaveChanges();
+                        {                        
+                            PackageManager.Delete(selectedPackage);                         
 
-                                DisplayPackages();
-                            }
+                            DisplayPackages();     
                         }
                         catch (Exception ex)
                         {
@@ -446,16 +461,14 @@ namespace TravelExpertsDBMaintenance
             }
             else if (index == 2) // Products
             {
-                Products selectedProduct; // Object for current selection
-                 
-                using (TravelExpertsContext db = new TravelExpertsContext()) // open database connection
-                {
-                    // integer value for primary key column of selected row in data grid view
-                    int value = (int)dgvMain.CurrentRow.Cells[0].Value;
+                Products selectedProduct; // Object for current selection               
+              
+                // Integer value for primary key column of selected row in data grid view
+                int value = (int)dgvMain.CurrentRow.Cells[0].Value;
 
-                    // Find selected product using value(id)
-                    selectedProduct = db.Products.Find(value); 
-                }
+                // Find selected product using value(id)
+                selectedProduct = ProductManager.Find(value); 
+               
 
                 if (selectedProduct != null) // product is selected
                 {
@@ -467,13 +480,9 @@ namespace TravelExpertsDBMaintenance
                     {
                         try
                         {
-                            using (TravelExpertsContext db = new TravelExpertsContext())
-                            {
-                                db.Products.Remove(selectedProduct);
-                                db.SaveChanges();
+                            ProductManager.Delete(selectedProduct);
 
-                                DisplayProducts();
-                            }
+                            DisplayProducts();                       
                         }
                         catch (Exception ex)
                         {
@@ -487,20 +496,17 @@ namespace TravelExpertsDBMaintenance
                     MessageBox.Show("Product needs to be selected", "Error deleting product",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
             else if (index == 3) // Supplier
             {
                 Suppliers selectedSupplier; // Object for current selection
+               
+                // Integer value for primary key column of selected row in data grid view
+                int value = (int)dgvMain.CurrentRow.Cells[0].Value;
 
-                using (TravelExpertsContext db = new TravelExpertsContext()) // Open database connection
-                {
-                    // integer value for primary key column of selected row in data grid view
-                    int value = (int)dgvMain.CurrentRow.Cells[0].Value;
+                // Find selected supplier using value(id)
+                selectedSupplier = SupplierManager.Find(value);
 
-                    // Find selected supplier using value(id)
-                    selectedSupplier = db.Suppliers.Find(value);
-                }
 
                 if (selectedSupplier != null) // Supplier is selected
                 {
@@ -511,14 +517,10 @@ namespace TravelExpertsDBMaintenance
                     if (answer == DialogResult.Yes)
                     {
                         try
-                        {
-                            using (TravelExpertsContext db = new TravelExpertsContext())
-                            {
-                                db.Suppliers.Remove(selectedSupplier);
-                                db.SaveChanges();
+                        {  
+                            SupplierManager.Delete(selectedSupplier);                               
 
-                                DisplaySuppliers();
-                            }
+                            DisplaySuppliers();      
                         }
                         catch (Exception ex)
                         {
@@ -535,61 +537,45 @@ namespace TravelExpertsDBMaintenance
             }
         }
 
-        // Member Methods ========================================================================
+        // Member Methods ============================================================================
 
         /// <summary>
         /// Void method that displays all Packages table entries in the DataGridView
         /// </summary>
         private void DisplayPackages()
         {
-            using (TravelExpertsContext db = new TravelExpertsContext()) // open db connection
-            {
-                // Getting ordered list of packages from Packages table
-                var packages = db.Packages.OrderBy(p => p.PackageId)
-                    .Select(p => new {
-                        p.PkgName,
-                        p.PkgStartDate,
-                        p.PkgEndDate,
-                        p.PkgDesc,
-                        p.PkgBasePrice,
-                        p.PkgAgencyCommission
-                    })
-                    .ToList();
+            // Setting Data Grid View data source
+            dgvMain.DataSource = PackageManager.GetOrderedList();
 
-                // Setting Data Grid View data source
-                dgvMain.DataSource = packages;
+            // Setting header and individual column font family and font size
+            dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe", 12, FontStyle.Bold);
 
-                // Setting header and individual column font family and font size
-                dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe", 12, FontStyle.Bold);
+            dgvMain.Columns[0].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[1].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[2].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[3].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[4].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[5].DefaultCellStyle.Font = new Font("Segoe", 12);
 
-                dgvMain.Columns[0].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[1].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[2].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[3].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[4].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[5].DefaultCellStyle.Font = new Font("Segoe", 12);
+            // Setting Column width
+            dgvMain.Columns[0].Width = 225; // Name
+            dgvMain.Columns[1].Width = 150; // Start Date
+            dgvMain.Columns[2].Width = 150; // End Date
+            dgvMain.Columns[3].Width = 375; // Description
+            dgvMain.Columns[4].Width = 150; // Base Price
+            dgvMain.Columns[5].Width = 240; // Agency Commission
 
-                // Setting Column width
-                dgvMain.Columns[0].Width = 225; // Name
-                dgvMain.Columns[1].Width = 150; // Start Date
-                dgvMain.Columns[2].Width = 150; // End Date
-                dgvMain.Columns[3].Width = 375; // Description
-                dgvMain.Columns[4].Width = 150; // Base Price
-                dgvMain.Columns[5].Width = 240; // Agency Commission
+            // Renaming columns           
+            dgvMain.Columns[0].HeaderText = "Package Name";
+            dgvMain.Columns[1].HeaderText = "Start Date";
+            dgvMain.Columns[2].HeaderText = "End Date";
+            dgvMain.Columns[3].HeaderText = "Description";
+            dgvMain.Columns[4].HeaderText = "Base Price";
+            dgvMain.Columns[5].HeaderText = "Agency Commission";
 
-                // Renaming columns           
-                dgvMain.Columns[0].HeaderText = "Package Name";
-                dgvMain.Columns[1].HeaderText = "Start Date";
-                dgvMain.Columns[2].HeaderText = "End Date";
-                dgvMain.Columns[3].HeaderText = "Description";
-                dgvMain.Columns[4].HeaderText = "Base Price";
-                dgvMain.Columns[5].HeaderText = "Agency Commission";
-
-                // Formatting prices as currency
-                dgvMain.Columns[4].DefaultCellStyle.Format = "c";
-                dgvMain.Columns[5].DefaultCellStyle.Format = "c";
-
-            }
+            // Formatting prices as currency
+            dgvMain.Columns[4].DefaultCellStyle.Format = "c";
+            dgvMain.Columns[5].DefaultCellStyle.Format = "c";      
         }
 
 
@@ -597,31 +583,23 @@ namespace TravelExpertsDBMaintenance
         /// Void method that displays all Products table entries in the DataGridView
         /// </summary>
         private void DisplayProducts()
-        {
-            using (TravelExpertsContext db = new TravelExpertsContext()) // open database connection
-            {
-                // Getting ordered list of products from Packages table
-                var products = db.Products.OrderBy(p => p.ProductId)
-                    .Select(p => new { p.ProductId, p.ProdName })
-                    .ToList();
+        {    
+            // Settin Data Grid View data source
+            dgvMain.DataSource = ProductManager.GetOrderedList();
 
-                // Settin Data Grid View data source
-                dgvMain.DataSource = products;
+            // Setting header and individual column font family and font size
+            dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe", 12, FontStyle.Bold);
 
-                // Setting header and individual column font family and font size
-                dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe", 12, FontStyle.Bold);
+            dgvMain.Columns[0].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[1].DefaultCellStyle.Font = new Font("Segoe", 12);
 
-                dgvMain.Columns[0].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[1].DefaultCellStyle.Font = new Font("Segoe", 12);
+            // Setting Column width
+            dgvMain.Columns[0].Width = 140;
+            dgvMain.Columns[1].Width = 986;
 
-                // Setting Column width
-                dgvMain.Columns[0].Width = 140;
-                dgvMain.Columns[1].Width = 986;
-
-                // Renaming columns
-                dgvMain.Columns[0].HeaderText = "Product Id";
-                dgvMain.Columns[1].HeaderText = "Product Name";
-            }
+            // Renaming columns
+            dgvMain.Columns[0].HeaderText = "Product Id";
+            dgvMain.Columns[1].HeaderText = "Product Name";      
         }
 
 
@@ -630,30 +608,22 @@ namespace TravelExpertsDBMaintenance
         /// </summary>
         private void DisplaySuppliers()
         {
-            using (TravelExpertsContext db = new TravelExpertsContext()) // open db connection
-            {
-                // Getting ordered list of suppliers from Suppliers table
-                var suppliers = db.Suppliers.OrderBy(s => s.SupplierId)
-                    .Select(s => new { s.SupplierId, s.SupName })
-                    .ToList();
+            // Setting Data Grid View data source
+            dgvMain.DataSource = SupplierManager.GetOrderedList();
 
-                // Setting Data Grid View data source
-                dgvMain.DataSource = suppliers;
+            // Setting header and individual column font family and font size
+            dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe", 12, FontStyle.Bold);
 
-                // Setting header and individual column font family and font size
-                dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe", 12, FontStyle.Bold);
+            dgvMain.Columns[0].DefaultCellStyle.Font = new Font("Segoe", 12);
+            dgvMain.Columns[1].DefaultCellStyle.Font = new Font("Segoe", 12);
 
-                dgvMain.Columns[0].DefaultCellStyle.Font = new Font("Segoe", 12);
-                dgvMain.Columns[1].DefaultCellStyle.Font = new Font("Segoe", 12);
+            // Setting Column width
+            dgvMain.Columns[0].Width = 150;
+            dgvMain.Columns[1].Width = 955;
 
-                // Setting Column width
-                dgvMain.Columns[0].Width = 150;
-                dgvMain.Columns[1].Width = 955;
-
-                // Renaming columns
-                dgvMain.Columns[0].HeaderText = "Supplier Id";
-                dgvMain.Columns[1].HeaderText = "Supplier Name";
-            }
+            // Renaming columns
+            dgvMain.Columns[0].HeaderText = "Supplier Id";
+            dgvMain.Columns[1].HeaderText = "Supplier Name";         
         }
 
 
@@ -676,8 +646,6 @@ namespace TravelExpertsDBMaintenance
             btnAdd.Enabled = false;
             btnModify.Enabled = false;
             btnDelete.Enabled = false;
-        }
-
-       
+        }      
     } // class
 } // namespace
