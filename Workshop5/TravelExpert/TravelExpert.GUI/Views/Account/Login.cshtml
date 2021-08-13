@@ -1,0 +1,20 @@
+﻿@model TravelExpert.GUI.Models.CurrentUser;
+@{
+    ViewData["Title"] = "Login";
+}
+<h3>Login</h3>
+<form asp-action="Login">
+    <table class="table">
+        <tr>
+            <td>UserID:</td>
+            <td><input type="text" asp-for="CustomerId" /></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="text" asp-for="CustPwd" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Authenticate" class="btn btn-primary" /></td>
+        </tr>
+    </table>
+</form>
