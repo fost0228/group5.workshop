@@ -1,11 +1,15 @@
 {
   "version": 2,
+<<<<<<< HEAD
 <<<<<<< HEAD:TravelExpertsDBMaintenance/TravelExpertsData/obj/project.nuget.cache
   "dgSpecHash": "pTkt15ch96k8/gTskNgEXVNc59JqMqI3dMtHlljPWDnZlUU3jbEEVk0qDUDhsDwqq3b9EHx4VS7DWgPVJpx5fw==",
   "success": true,
   "projectFilePath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj",
 =======
   "dgSpecHash": "PW7fgySgC15/do3jyI8rbh+5RfCdSARLT4CHr8jFe87k+ZB+oocr4imOan7RPgDtLCAgEZahzUqEhATLolNGEA==",
+=======
+  "dgSpecHash": "qn5pTX1HNXqjpI0yLfyf+1PY9jh8x/cIG1a4Y1DF3Ivrm9QZUOzDpdCSxJvuRuGuBDSIzyT4l7aY365dzzSkLA==",
+>>>>>>> cb53005ac85efcf6ad5c663f2018964713906d93
   "success": true,
   "projectFilePath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsData\\TravelExpertsData.csproj",
 >>>>>>> 35f56c817dbebbe4ead1833e659e8e1a4ca2d954:Workshop 4/TravelExpertsDBMaintenance - Updated/TravelExpertsData/obj/project.nuget.cache

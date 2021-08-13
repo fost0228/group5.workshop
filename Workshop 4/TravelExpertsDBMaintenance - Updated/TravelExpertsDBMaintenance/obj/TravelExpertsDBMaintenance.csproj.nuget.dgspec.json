@@ -17,6 +17,68 @@
     "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsDBMaintenance\\TravelExpertsDBMaintenance.csproj": {}
   },
   "projects": {
+    "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsBLL\\TravelExpertsBLL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsBLL\\TravelExpertsBLL.csproj",
+        "projectName": "TravelExpertsBLL",
+        "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsBLL\\TravelExpertsBLL.csproj",
+        "packagesPath": "C:\\Users\\acox0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsBLL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\acox0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsData\\TravelExpertsData.csproj": {
+                "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsData\\TravelExpertsData.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsData\\TravelExpertsData.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -92,7 +154,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -135,10 +197,16 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
+<<<<<<< HEAD
 <<<<<<< HEAD:TravelExpertsDBMaintenance/TravelExpertsDBMaintenance/obj/TravelExpertsDBMaintenance.csproj.nuget.dgspec.json
               "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj": {
                 "projectPath": "E:\\WorkSpace\\csharp\\group5workshop\\TravelExpertsDBMaintenance\\TravelExpertsData\\TravelExpertsData.csproj"
 =======
+=======
+              "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsBLL\\TravelExpertsBLL.csproj": {
+                "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsBLL\\TravelExpertsBLL.csproj"
+              },
+>>>>>>> cb53005ac85efcf6ad5c663f2018964713906d93
               "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsData\\TravelExpertsData.csproj": {
                 "projectPath": "C:\\Users\\acox0\\source\\repos\\TravelExpertsDBMaintenance - Updated\\TravelExpertsData\\TravelExpertsData.csproj"
 >>>>>>> 35f56c817dbebbe4ead1833e659e8e1a4ca2d954:Workshop 4/TravelExpertsDBMaintenance - Updated/TravelExpertsDBMaintenance/obj/TravelExpertsDBMaintenance.csproj.nuget.dgspec.json
@@ -165,6 +233,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.17, )"
+            },
+            "Uno.UI": {
+              "target": "Package",
+              "version": "[3.9.7, )"
             }
           },
           "imports": [
@@ -191,7 +263,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

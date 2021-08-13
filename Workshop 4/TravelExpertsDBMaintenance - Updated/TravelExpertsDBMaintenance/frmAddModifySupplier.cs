@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using TravelExpertsBLL;
 using TravelExpertsData.Models;
 
 namespace TravelExpertsDBMaintenance
@@ -14,6 +10,7 @@ namespace TravelExpertsDBMaintenance
     {
         public bool isAdd;
         public Suppliers supplier;
+        public SupplierContacts supplierContact;
         public List<ProductsSuppliers> prodsuppliers;
 
         public int supplierID; // current supplier id if modify (This was used for an experiment)
@@ -43,12 +40,13 @@ namespace TravelExpertsDBMaintenance
                 this.Text = "Modify Supplier";
                 lstProductList.Items.Clear();
 
-                // loop through product supplier object that was passed to this form
-                // retrieve the name of product(s) from that object (all table entries)
-                // add them to record of product names
+                // Loop through product supplier object that was passed to this form
+                // Retrieve the name of product(s) from that object (all table entries)
+                // Add them to record of product names
+
                 foreach (ProductsSuppliers ps in prodsuppliers)
                 {
-                    string name = GetProductName((int)ps.ProductId);
+                    string name = ProductManager.GetProductName((int)ps.ProductId);
                     prodNames.Add(name);
                 }
 
@@ -60,24 +58,30 @@ namespace TravelExpertsDBMaintenance
                     this.Close();
                 }
 
-                using (TravelExpertsContext db = new TravelExpertsContext()) // open database connection
+                // Add associated product names to list box for display
+                foreach (string name in prodNames)
                 {
-                    // populate product list with associated products
-                    var productList = db.Products.Join(db.ProductsSuppliers,
-                                        p => p.ProductId,
-                                        ps => ps.ProductId,
-                                        (p, ps) => new { ProdName = p.ProdName, SupID = ps.SupplierId })
-                        .Where(x => x.SupID == supplier.SupplierId)
-                        .ToList();
-
-                    // add associated product names to list box for display
-                    foreach (var p in productList)
-                    {
-                        lstProductList.Items.Add(p.ProdName);
-                    }
+                    lstProductList.Items.Add(name);
                 }
 
-                // populated suppler name field with selected supplier name
+                //using (TravelExpertsContext db = new TravelExpertsContext()) // open database connection
+                //{
+                //    // populate product list with associated products
+                //    var productList = db.Products.Join(db.ProductsSuppliers,
+                //                        p => p.ProductId,
+                //                        ps => ps.ProductId,
+                //                        (p, ps) => new { ProdName = p.ProdName, SupID = ps.SupplierId })
+                //        .Where(x => x.SupID == supplier.SupplierId)
+                //        .ToList();
+
+                //    // add associated product names to list box for display
+                //    foreach (var p in productList)
+                //    {
+                //        lstProductList.Items.Add(p.ProdName);
+                //    }
+                //}
+
+                // Populate supplier name field with selected supplier name
                 txtName.Text = supplier.SupName;
 
                 // *** As mentioned above, this step will likely be removed ***
@@ -110,36 +114,55 @@ namespace TravelExpertsDBMaintenance
 
                     if (prodNames.Count > 0) // If product list is populated
                     {
-                        foreach (string p in prodNames) // for each product name in the list box...
+                        foreach (string p in prodNames) // For each product name in the list box...
                         {
-                            // create a product supplier object
+                            // Create a product supplier object
                             ProductsSuppliers ps = new ProductsSuppliers();
 
-                            // get product id based on product name
-                            int prodID = GetProductId(p);
+                            // Get product id based on product name
+                            int prodID = ProductManager.GetProductId(p);
 
-                            // add productId and current supplierId to product supplier object
+                            // Add productId and current supplierId to product supplier object
                             ps.ProductId = prodID;
                             ps.SupplierId = supplier.SupplierId;
                                             
                             prodsuppliers.Add(ps);
                         }
                     }
+
+                    // Creating default supplier contact entry, which is set to be blank until
+                    // user updates it
+
+                    supplierContact = new SupplierContacts
+                    {
+                        SupplierContactId = 1,
+                        SupConFirstName = null,
+                        SupConLastName = null,
+                        SupConCompany = null,
+                        SupConAddress = null,
+                        SupConCity = null,
+                        SupConProv = null,
+                        SupConPostal = null,
+                        SupConCountry = null,
+                        SupConBusPhone = null,
+                        SupConFax = null,
+                        SupConEmail = null,
+                        SupConUrl = null,
+                        AffiliationId = null,
+                        SupplierId = null
+                    };
                     
                     // *** Items are added to database in main form code ***
 ;               }
                 else // Modifying supplier
-                {
-                    //************************************************************************//
-                    // DISREGARD this part of the code until I have a chance to solve issues  //
-                    //************************************************************************//
+                {                
                     currentProds = new List<string>(); 
 
                     foreach (string p in prodNames)
                     {
                         foreach (ProductsSuppliers ps in prodsuppliers)
                         {
-                            if (p == GetProductName((int)ps.ProductId))
+                            if (p == ProductManager.GetProductName((int)ps.ProductId))
                             {
                                 currentProds.Add(p);
                             }
@@ -159,7 +182,7 @@ namespace TravelExpertsDBMaintenance
                     
                     foreach (string p in prodNames)
                     {
-                        int prodID = GetProductId(p);
+                        int prodID = ProductManager.GetProductId(p);
 
                         ProductsSuppliers newProdSuppliers = new ProductsSuppliers
                         {
@@ -167,11 +190,7 @@ namespace TravelExpertsDBMaintenance
                             SupplierId = this.supplierID
                         };
 
-                        using (TravelExpertsContext db = new TravelExpertsContext())
-                        {
-                            db.ProductsSuppliers.Add(newProdSuppliers);
-                            db.SaveChanges();
-                        }
+                        ProductSupplierManager.Add(newProdSuppliers);
                     }
 
                     // Rejoin all product names to prodName List
@@ -179,41 +198,11 @@ namespace TravelExpertsDBMaintenance
                     {
                         prodNames.Add(c);
                     }
-
-                    //// *** Move this outside of form and execute after Suppliers table is
-                    //// modified ***
-
-                    //// Find Product Suppliers that do not have Id of products on current list
-                    //// Remove them from the data base
-                    //using (TravelExpertsContext db = new TravelExpertsContext())
-                    //{
-                    //    List<ProductsSuppliers> prodSuppliersToRemove = db.ProductsSuppliers
-                    //        .Where(ps => ps.SupplierId == this.supplierID).ToList();
-
-                    //    // filter out all prod supplier that contain id for product that's in the product
-                    //    // names list
-                    //    foreach (string p in prodNames)
-                    //    {
-                    //        prodSuppliersToRemove.Remove(
-                    //            prodSuppliersToRemove.SingleOrDefault(pstr => GetProductName((int)pstr.ProductId) == p));
-                    //    }
-
-                    //    if (prodSuppliersToRemove.Count > 0)
-                    //    {
-                    //        foreach (ProductsSuppliers ps in prodSuppliersToRemove)
-                    //        {
-                    //            db.ProductsSuppliers.Remove(ps);
-                    //        }
-
-                    //        db.SaveChanges();
-                    //    }
-                        
-                    //}
                 }              
                 
                 supplier.SupName = txtName.Text;
                
-                // create product supplier object entries and add to list             
+                // Create product supplier object entries and add to list             
 
                 this.DialogResult = DialogResult.OK;
             }
@@ -237,20 +226,19 @@ namespace TravelExpertsDBMaintenance
                 }
             }
 
-            // add name to product name record
+            // Add name to product name record
             prodNames.Add(prodName); 
 
-            // clear current list contents
+            // Clear current list contents
             lstProductList.Items.Clear(); 
 
-            // update with current list of product names
+            // Update with current list of product names
             foreach (string p in prodNames)
             {
                 lstProductList.Items.Add(p);
             }
 
-            EnableOrDisableRemoveProduct();
-            
+            EnableOrDisableRemoveProduct();         
         }
 
 
@@ -262,8 +250,9 @@ namespace TravelExpertsDBMaintenance
             string prodName = lstProductList.SelectedItem.ToString(); // get selected product to remove
             string prodToRemove = null; 
 
-            // finding matching product name to remove within products name record
+            // Finding matching product name to remove within products name record
             // and assign to its own variable
+
             foreach (string p in prodNames)
             {
                 if (p == prodName)
@@ -295,16 +284,12 @@ namespace TravelExpertsDBMaintenance
 
         private void FillProductsComboBox()
         {
-            using (TravelExpertsContext db = new TravelExpertsContext())
-            {
-                // populate combo box with all products from Prodcts table
+            List<Products> products = ProductManager.GetAll();
 
-                List<Products> products = db.Products.ToList();
-
-                cboSelect.DataSource = products;
-                cboSelect.ValueMember = "ProductId";
-                cboSelect.DisplayMember = "ProdName";
-            }
+            cboSelect.DataSource = products;
+            cboSelect.ValueMember = "ProductId";
+            cboSelect.DisplayMember = "ProdName";
+          
         }
 
 
@@ -321,38 +306,6 @@ namespace TravelExpertsDBMaintenance
             else
             {
                 btnRemoveProd.Enabled = false;
-            }
-        }
-
-
-        /// <summary>
-        /// Gets Id of a product based on the provided product name
-        /// </summary>
-        /// <param name="prodName">Product name</param>
-        /// <returns>ProductId</returns>
-        private int GetProductId(string prodName)
-        {
-            using (TravelExpertsContext db = new TravelExpertsContext())
-            {
-                Products prod = db.Products.SingleOrDefault(p => p.ProdName == prodName);
-
-                return prod.ProductId;
-            }
-        }
-
-
-        /// <summary>
-        /// Gets the string name of product based on provided Id
-        /// </summary>
-        /// <param name="id">ProductID</param>
-        /// <returns>Product name</returns>
-        public string GetProductName(int id)
-        {
-            using (TravelExpertsContext db = new TravelExpertsContext())
-            {
-                Products prod = db.Products.Find(id);
-
-                return prod.ProdName;
             }
         }
     }

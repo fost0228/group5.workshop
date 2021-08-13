@@ -149,3 +149,14 @@ C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDB
 C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\obj\Debug\netcoreapp3.1\TravelExpertsDBMaintenance.dll
 C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\obj\Debug\netcoreapp3.1\TravelExpertsDBMaintenance.pdb
 C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\obj\Debug\netcoreapp3.1\TravelExpertsDBMaintenance.genruntimeconfig.cache
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\TravelExpertsBLL.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\TravelExpertsBLL.pdb
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\CommonServiceLocator.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.Core.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.Diagnostics.Eventing.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.Foundation.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.UI.FluentTheme.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.UI.Toolkit.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.UI.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.Xaml.dll
+C:\Users\acox0\source\repos\TravelExpertsDBMaintenance - Updated\TravelExpertsDBMaintenance\bin\Debug\netcoreapp3.1\Uno.dll
