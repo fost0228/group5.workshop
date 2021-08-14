@@ -29,6 +29,11 @@
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
+                    <div style="text-align: right">
+                        <form asp-controller="Account" asp-action="Logout">
+                            <input type="submit" value="Sign Out" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </nav>
