@@ -7,6 +7,7 @@ namespace TravelExpert.GUI.Models
 {
     public class CurrentUser
     {
+        public string UserName { get; set; }
         public int CustomerId { get; set; }
         public string CustFirstName { get; set; }
         public string CustLastName { get; set; }

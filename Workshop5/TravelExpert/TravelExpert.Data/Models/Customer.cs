@@ -28,6 +28,8 @@ namespace TravelExpert.Data
         public int? AgentId { get; set; }
         public string CustPwd { get; set; }
 
+        public string UserName { get; set; }
+
         public virtual Agent Agent { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<CreditCard> CreditCards { get; set; }

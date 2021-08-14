@@ -44,7 +44,7 @@ namespace TravelExpert.GUI.Controllers
         public async Task<IActionResult> LoginAsync(CurrentUser currentuser)
         {
             //check customerID and password
-            Customer cust = UserManager.Authenticate(currentuser.CustomerId, currentuser.CustPwd);
+            Customer cust = UserManager.Authenticate(currentuser.UserName, currentuser.CustPwd);
 
             if (cust != null)
             {
@@ -105,9 +105,6 @@ namespace TravelExpert.GUI.Controllers
         //        return RedirectToAction("Index", "Home");
 
         //    }
-
-
-
         //}
 
 

@@ -10,11 +10,11 @@ namespace TravelExpert.BLL
     {
         private static List<Customer> _account;
 
-        public static Customer Authenticate(int CustomerId, string CustPwd)
+        public static Customer Authenticate(string UserName, string CustPwd)
         {
             TravelExpertsContext db = new TravelExpertsContext();
             _account = db.Customers.ToList();
-            var account = _account.SingleOrDefault(usr => usr.CustomerId == CustomerId &&
+            var account = _account.SingleOrDefault(usr => usr.UserName == UserName &&
                                             usr.CustPwd == CustPwd);
             return account;
         }
