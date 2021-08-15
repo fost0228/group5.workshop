@@ -25,6 +25,11 @@ namespace TravelExpert.BLL
         //    db.Customers.Add(customer);
         //    db.SaveChanges();
         //}
+        public static bool UserExist(String UserName)
+        {
+            TravelExpertsContext db = new TravelExpertsContext();
 
+            return db.Customers.SingleOrDefault(usr => usr.UserName == UserName) != null;
+        }
     }
 }

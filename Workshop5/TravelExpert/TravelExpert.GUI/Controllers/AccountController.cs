@@ -107,8 +107,14 @@ namespace TravelExpert.GUI.Controllers
         //    }
         //}
 
+        ///Please add this into register function
+    //   if (UserManager.UserExist(customer.UserName)) {
+    //    ModelState.AddModelError("UserName","username already exits!");
+    //            return RedirectToAction("Index","Home");
+    //}
 
-        public async Task<IActionResult> LogoutAsync() 
+
+    public async Task<IActionResult> LogoutAsync() 
         {
             await HttpContext.SignOutAsync("Cookies");
             return RedirectToAction("Index","Home");
